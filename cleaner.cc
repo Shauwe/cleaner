@@ -30,6 +30,29 @@ inline void printRoom(vector<vector<int> > &room, string &value) {
   }
 }
 
+inline void jamPosition(RoomState &st, int x, int y) {
+  st.adj = 0;
+  if (st.wall[x][y] >= 3) --st.ends;
+  st.wall[x][y] = -1, st.room[x][y] = 2, --st.invalid;
+  if (x > 0 && st.room[x-1][y] == 0) {
+    st.wall[x-1][y] += 1; 
+    if (st.wall[x-1][y] == 3) { st.ends++, st.adj = 1; }
+  }
+  if (x < numx-1 && st.room[x+1][y] == 0) {
+    st.wall[x+1][y] += 1;
+    if (st.wall[x+1][y] == 3) {st.ends++, st.adj = 1; }
+  }
+  if (y > 0 && st.room[x][y-1] == 0) {
+    st.wall[x][y-1] += 1;
+    if (st.wall[x][y-1] == 3) {st.ends++, st.adj = 1; }
+  }                                                       
+  if (y < numy-2 && st.room[x][y+1] ==0) {
+    st.wall[x][y+1] += 1;
+    if (st.wall[x][y+1] ==3) {st.ends++, st.adj = 1; }
+  }
+}
+
+
 inline int cleanRoomV2(RoomState &st, bool clean, int start, int dir, int &last) {
   int x = (start >> 16), y = (start & 0xFFFF);
   int delx = 0, dely = 0;
