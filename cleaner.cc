@@ -91,7 +91,7 @@ inline int cleanRoomV2(RoomState &st, bool clean, int start, int dir, int &last)
     while (!first) {
       if (x-delx== (start>>16) && y-dely==(start & 0xFFFF)) first = true;
       int ax = x + vx, ay = y + vy;
-      st.wall[x][y] = 2-first-end, st.room[x][y]=0, ++st.invalid, st.adj=0;
+      st.wall[x][y] = first+end, st.room[x][y]=0, ++st.invalid, st.adj=0;
       if (ax<numx && ay < numy && st.room[ax][ay]==0) {
         --st.wall[ax][ay];
         if (st.wall[ax][ay] == 2) --st.ends;
@@ -230,8 +230,6 @@ void thread_run(RoomState st, int idx) {
     for (int j = 0; j < numy; ++j) {
       if (st.room[i][j] != 0) continue;
       total += 1;
-      if (total < 140) continue;
-      if (total % 5 == 0) cout << total << endl;
       if (total % TotalThreads == idx) {
         if (trySearchRoom(st, i, j, value)) {
           locker.lock();
