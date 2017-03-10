@@ -30,7 +30,7 @@ inline void printRoom(vector<vector<int> > &room, string &value) {
   }
 }
 
-inline int cleanRoom(RoomState &st, bool clean, int start, int dir, int &last) {
+inline int cleanRoomV2(RoomState &st, bool clean, int start, int dir, int &last) {
   int x = (start >> 16), y = (start & 0xFFFF);
   int delx = 0, dely = 0;
   int vx = 0, vy = 1;
