@@ -231,7 +231,6 @@ void thread_run(RoomState st, int idx) {
     for (int j = 0; j < numy; ++j) {
       if (st.room[i][j] != 0) continue;
       total += 1;
-      if (total % 10 == 0) cout << total << endl;
       if (total % TotalThreads == idx) {
         if (trySearchRoom(st, i, j, value)) {
           locker.lock();
